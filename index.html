@@ -3,64 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Merch Shop</title>
+    <title>Sopi By Woiting | Design Showcase</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-            text-align: center;
+            background-color: #ffffff;
+            color: #111;
         }
         header {
-            background-color: #111;
-            color: #fff;
-            padding: 60px 20px;
+            text-align: center;
+            padding: 60px 20px 40px 20px;
+            border-bottom: 1px solid #f0f0f0;
         }
         header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
             margin: 0;
-            font-size: 2.5rem;
+            font-weight: 700;
         }
         header p {
-            color: #aaa;
-            margin-top: 10px;
+            color: #666;
+            font-size: 1rem;
+            margin-top: 8px;
+            letter-spacing: 1px;
         }
-        .container {
-            max-width: 800px;
+        .gallery-container {
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
         }
-        .coming-soon {
-            background: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        /* Grid setup for vertical fashion photos */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
         }
-        .btn {
-            display: inline-block;
-            background-color: #0070f3;
-            color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            margin-top: 20px;
+        .item {
+            background: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        .item img {
+            width: 100%;
+            height: 450px; /* Tall portrait crop standard for clothing */
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .item:hover img {
+            transform: scale(1.02);
+        }
+        .item-info {
+            padding: 15px 5px;
+        }
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0 0 5px 0;
+        }
+        .item-desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 0;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Merch Official</h1>
-        <p>Welcome to our official domain</p>
+        <h1>Sopi By Woiting</h1>
+        <p>Bespoke & Contemporary Saree Drape Collection</p>
     </header>
 
-    <div class="container">
-        <div class="coming-soon">
-            <h2>Something amazing is in the works!</h2>
-            <p>We are currently setting up our brand new web space. Stay tuned for exciting updates, clips, and releases.</p>
-            <a href="#" class="btn">Learn More</a>
+    <div class="gallery-container">
+        <div class="grid">
+
+            <!-- Item 1 -->
+            <div class="item">
+                <!-- Replace 'photo1.jpg' with your uploaded photo filename -->
+                <img src="photo1.jpg" alt="Collection Piece">
+                <div class="item-info">
+                    <h3 class="item-title">Exclusive Silk Drape Saree</h3>
+                    <p class="item-desc">Custom tailored custom-fit look.</p>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="item">
+                <img src="photo2.jpg" alt="Collection Piece">
+                <div class="item-info">
+                    <h3 class="item-title">Contemporary Fusion Set</h3>
+                    <p class="item-desc">Handcrafted design details.</p>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="item">
+                <img src="photo3.jpg" alt="Collection Piece">
+                <div class="item-info">
+                    <h3 class="item-title">Embellished Evening Wear</h3>
+                    <p class="item-desc">Signature boutique tailoring.</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
