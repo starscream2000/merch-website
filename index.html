@@ -1,85 +1,1369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MERCH</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>MERCH</title>
+<style>
+/* ══════════════════════════════════════════
+   MERCH — Nike-inspired clothing showcase
+   ══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black:   #111111;
+  --white:   #FFFFFF;
+  --gray-1:  #F5F5F5;
+  --gray-2:  #E5E5E5;
+  --gray-3:  #AAAAAA;
+  --gray-4:  #767676;
+  --red:     #D43F21;
+  --font-d:  'Barlow Condensed', sans-serif;
+  --font-b:  'Barlow', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-b);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── ANNOUNCEMENT BAR ── */
+.announce {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 10px 16px;
+  font-family: var(--font-b);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 60px;
+}
+
+.nav-logo {
+  font-family: var(--font-d);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--black);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.15s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  border-bottom-color: var(--black);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Admin lock icon — subtle, only admin knows */
+.admin-trigger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-3);
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 50%;
+  transition: color 0.2s;
+}
+.admin-trigger:hover { color: var(--black); }
+.admin-trigger.unlocked { color: var(--black); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--black);
+  color: var(--white);
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 64px;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: var(--font-d);
+  font-size: clamp(72px, 9vw, 136px);
+  font-weight: 900;
+  line-height: 0.92;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 28px;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--gray-3);
+  font-weight: 400;
+  font-size: 0.45em;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+
+.hero-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.65);
+  max-width: 360px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--white);
+  color: var(--black);
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 16px 32px;
+  border-radius: 40px;
+  text-decoration: none;
+  width: fit-content;
+  transition: background 0.2s, color 0.2s;
+}
+
+.hero-cta:hover {
+  background: var(--gray-2);
+}
+
+.hero-visual {
+  position: relative;
+  background: #1a1a1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero-visual-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #333;
+}
+
+.hero-visual-placeholder svg { opacity: 0.3; }
+
+.hero-visual-placeholder p {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0.3;
+}
+
+.hero-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+}
+
+/* ── SECTION HEADER ── */
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 56px 32px 24px;
+  border-bottom: 1px solid var(--gray-2);
+  margin-bottom: 0;
+}
+
+.section-title {
+  font-family: var(--font-d);
+  font-size: 42px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.section-count {
+  font-size: 13px;
+  color: var(--gray-4);
+  font-weight: 400;
+  padding-bottom: 4px;
+}
+
+/* ── FILTER CHIPS ── */
+.filters {
+  display: flex;
+  gap: 8px;
+  padding: 20px 32px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--gray-2);
+}
+
+.chip {
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 18px;
+  border: 1px solid var(--gray-2);
+  border-radius: 40px;
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.15s;
+  color: var(--black);
+}
+
+.chip:hover { border-color: var(--black); }
+
+.chip.active {
+  background: var(--black);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+/* ── PRODUCT GRID ── */
+.grid-wrap {
+  padding: 24px 32px 64px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.empty-state {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  gap: 16px;
+  color: var(--gray-4);
+}
+
+.empty-state svg { opacity: 0.25; }
+
+.empty-state p {
+  font-size: 14px;
+  letter-spacing: 0.05em;
+}
+
+/* ── PRODUCT CARD ── */
+.card {
+  position: relative;
+  background: var(--gray-1);
+  overflow: hidden;
+  cursor: pointer;
+  group: true;
+}
+
+.card-img-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 125%;
+  overflow: hidden;
+  background: var(--gray-1);
+}
+
+.card-img-wrap img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.card:hover .card-img-wrap img {
+  transform: scale(1.06);
+}
+
+.card-body {
+  padding: 14px 14px 18px;
+  background: var(--white);
+}
+
+.card-cat {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-4);
+  margin-bottom: 4px;
+}
+
+.card-name {
+  font-family: var(--font-b);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--black);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-price {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--black);
+  margin-top: 4px;
+}
+
+/* Admin badge on card */
+.card-remove {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.95);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--black);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+  transition: background 0.15s;
+}
+
+.card-remove:hover { background: var(--red); color: var(--white); }
+
+body.admin-mode .card-remove { display: flex; }
+
+/* ── ADMIN PANEL ── */
+.admin-bar {
+  display: none;
+  background: var(--black);
+  color: var(--white);
+  padding: 0 32px;
+  height: 52px;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 60px;
+  z-index: 90;
+}
+
+body.admin-mode .admin-bar { display: flex; }
+
+.admin-bar-label {
+  font-family: var(--font-d);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-bar-label::before {
+  content: '';
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  display: inline-block;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.admin-bar-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.btn-open-upload {
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  font-family: var(--font-b);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 40px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: background 0.15s;
+}
+
+.btn-open-upload:hover { background: var(--gray-2); }
+
+.btn-logout {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.6);
+  font-family: var(--font-b);
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-logout:hover {
+  border-color: rgba(255,255,255,0.6);
+  color: var(--white);
+}
+
+/* ── UPLOAD MODAL ── */
+.modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(8px);
+  z-index: 200;
+}
+
+.modal-backdrop.open { display: block; }
+
+.upload-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 201;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-modal.open { display: flex; }
+
+.upload-box {
+  background: var(--white);
+  width: 560px;
+  max-width: 95vw;
+  border-radius: 4px;
+  overflow: hidden;
+  animation: slideUp 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.upload-box-header {
+  background: var(--black);
+  color: var(--white);
+  padding: 20px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.upload-box-title {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 22px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.modal-close:hover { color: var(--white); }
+
+.upload-box-body {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.drop-zone {
+  border: 1.5px dashed var(--gray-2);
+  border-radius: 4px;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  color: var(--gray-4);
+  text-align: center;
+}
+
+.drop-zone:hover,
+.drop-zone.dragging {
+  border-color: var(--black);
+  background: var(--gray-1);
+  color: var(--black);
+}
+
+.drop-zone-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.drop-zone-sub {
+  font-size: 12px;
+  color: var(--gray-4);
+}
+
+.preview-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.preview-thumb {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.preview-thumb.selected { border-color: var(--black); }
+
+.fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.field {
+  font-family: var(--font-b);
+  font-size: 14px;
+  padding: 12px 14px;
+  border: 1px solid var(--gray-2);
+  border-radius: 4px;
+  color: var(--black);
+  background: var(--white);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.field:focus { border-color: var(--black); }
+.field::placeholder { color: var(--gray-3); }
+
+.field-full { grid-column: 1 / -1; }
+
+.btn-add-item {
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 16px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: background 0.15s;
+  width: 100%;
+}
+
+.btn-add-item:hover { background: #333; }
+
+/* ── PASSWORD MODAL ── */
+.pw-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(10px);
+  z-index: 300;
+}
+
+.pw-backdrop.open { display: block; }
+
+.pw-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 301;
+  align-items: center;
+  justify-content: center;
+}
+
+.pw-modal.open { display: flex; }
+
+.pw-box {
+  background: var(--white);
+  padding: 48px 40px 40px;
+  width: 380px;
+  max-width: 95vw;
+  border-radius: 4px;
+  text-align: center;
+  animation: slideUp 0.25s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.pw-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--black);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.pw-title {
+  font-family: var(--font-d);
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.pw-sub {
+  font-size: 13px;
+  color: var(--gray-4);
+  margin-bottom: 28px;
+}
+
+.pw-input {
+  font-family: var(--font-b);
+  font-size: 15px;
+  padding: 14px 16px;
+  border: 1.5px solid var(--gray-2);
+  border-radius: 4px;
+  width: 100%;
+  outline: none;
+  text-align: center;
+  letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+  color: var(--black);
+}
+
+.pw-input:focus { border-color: var(--black); }
+
+.pw-input.error { border-color: var(--red); }
+
+.pw-error {
+  font-size: 12px;
+  color: var(--red);
+  min-height: 18px;
+  margin-bottom: 14px;
+}
+
+.pw-btn {
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  font-family: var(--font-b);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 15px;
+  border-radius: 40px;
+  cursor: pointer;
+  width: 100%;
+  letter-spacing: 0.04em;
+  transition: background 0.15s;
+}
+
+.pw-btn:hover { background: #333; }
+
+/* ── LIGHTBOX ── */
+.lb-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 400;
+}
+
+.lb-backdrop.open { display: block; }
+
+.lb {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 401;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.lb.open { display: flex; }
+
+.lb-inner {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  animation: slideUp 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.lb-img-wrap {
+  flex: 0 0 420px;
+  max-width: 50vw;
+}
+
+.lb-img-wrap img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 2px;
+}
+
+.lb-info { flex: 1; color: var(--white); }
+
+.lb-cat {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-3);
+  margin-bottom: 12px;
+}
+
+.lb-name {
+  font-family: var(--font-d);
+  font-size: 48px;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+}
+
+.lb-price {
+  font-size: 26px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.75);
+}
+
+.lb-close {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: var(--white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 402;
+  transition: background 0.15s;
+}
+
+.lb-close:hover { background: rgba(255,255,255,0.2); }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--black);
+  color: rgba(255,255,255,0.4);
+  padding: 40px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-brand {
+  font-family: var(--font-d);
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--white);
+  letter-spacing: 0.06em;
+}
+
+.footer-copy {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-visual { height: 50vw; }
+  .hero-content { padding: 56px 24px; }
+  .hero-title { font-size: 72px; }
+  .nav { padding: 0 20px; }
+  .nav-links { display: none; }
+  .section-head, .filters, .grid-wrap { padding-left: 20px; padding-right: 20px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .lb-inner { flex-direction: column; gap: 24px; }
+  .lb-img-wrap { flex: none; max-width: 100%; width: 100%; }
+  .admin-bar { padding: 0 20px; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr; }
+  .fields-grid { grid-template-columns: 1fr; }
+  .field-full { grid-column: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav class="nav">
-    <span class="nav-logo">MERCH</span>
-    <div class="nav-links">
-      <a href="#" class="nav-link active" data-filter="all">All</a>
-      <a href="#" class="nav-link" data-filter="tops">Tops</a>
-      <a href="#" class="nav-link" data-filter="bottoms">Bottoms</a>
-      <a href="#" class="nav-link" data-filter="outerwear">Outerwear</a>
-      <a href="#" class="nav-link" data-filter="accessories">Accessories</a>
+<!-- ANNOUNCEMENT -->
+<div class="announce">Free shipping on all orders · New drops every week</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-logo">MERCH</span>
+  <div class="nav-links">
+    <a href="#" class="nav-link active" data-filter="all">All</a>
+    <a href="#" class="nav-link" data-filter="tops">Tops</a>
+    <a href="#" class="nav-link" data-filter="bottoms">Bottoms</a>
+    <a href="#" class="nav-link" data-filter="outerwear">Outerwear</a>
+    <a href="#" class="nav-link" data-filter="accessories">Accessories</a>
+  </div>
+  <div class="nav-right">
+    <!-- Hidden admin trigger — subtle lock icon -->
+    <button class="admin-trigger" id="adminTrigger" title="Admin">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ADMIN BAR (only in admin mode) -->
+<div class="admin-bar">
+  <span class="admin-bar-label">Admin Mode</span>
+  <div class="admin-bar-actions">
+    <button class="btn-open-upload" id="openUploadBtn">+ Upload Item</button>
+    <button class="btn-logout" id="logoutBtn">Lock</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">New Collection</p>
+    <h1 class="hero-title">
+      <span>Just</span>
+      MERCH
+    </h1>
+    <p class="hero-sub">Carefully selected pieces. Every item chosen for quality, fit, and longevity.</p>
+    <a href="#collection" class="hero-cta">
+      Shop Now
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </a>
+  </div>
+  <div class="hero-visual" id="heroVisual">
+    <div class="hero-visual-placeholder" id="heroPlaceholder">
+      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+      </svg>
+      <p>Hero image appears here</p>
     </div>
-  </nav>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <header class="hero">
-    <h1 class="hero-title">MERCH</h1>
-    <p class="hero-sub">Curated clothing. Nothing more.</p>
-  </header>
-
-  <!-- UPLOAD PANEL (admin) -->
-  <section class="upload-panel" id="uploadPanel">
-    <div class="upload-inner">
-      <div class="upload-drop" id="dropZone">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-        <span>Drop image or <label for="fileInput" class="upload-link">browse</label></span>
-        <input type="file" id="fileInput" accept="image/*" multiple hidden />
+<!-- COLLECTION -->
+<section id="collection">
+  <div class="section-head">
+    <h2 class="section-title">Collection</h2>
+    <span class="section-count" id="itemCount">0 items</span>
+  </div>
+  <div class="filters">
+    <button class="chip active" data-filter="all">All</button>
+    <button class="chip" data-filter="tops">Tops</button>
+    <button class="chip" data-filter="bottoms">Bottoms</button>
+    <button class="chip" data-filter="outerwear">Outerwear</button>
+    <button class="chip" data-filter="accessories">Accessories</button>
+  </div>
+  <div class="grid-wrap">
+    <div class="grid" id="grid">
+      <div class="empty-state" id="emptyState">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/>
+        </svg>
+        <p>No items yet — check back soon.</p>
       </div>
-      <div class="upload-fields">
-        <input type="text" id="itemName" placeholder="Item name" class="field" />
-        <input type="text" id="itemPrice" placeholder="Price (e.g. $80)" class="field" />
-        <select id="itemCategory" class="field">
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <span class="footer-brand">MERCH</span>
+  <span class="footer-copy">© 2025 MERCH. All rights reserved.</span>
+</footer>
+
+<!-- ── PASSWORD MODAL ── -->
+<div class="pw-backdrop" id="pwBackdrop"></div>
+<div class="pw-modal" id="pwModal">
+  <div class="pw-box">
+    <div class="pw-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+      </svg>
+    </div>
+    <h2 class="pw-title">Admin Access</h2>
+    <p class="pw-sub">Enter your password to manage items.</p>
+    <input type="password" id="pwInput" class="pw-input" placeholder="••••••••" />
+    <p class="pw-error" id="pwError"></p>
+    <button class="pw-btn" id="pwSubmit">Unlock</button>
+  </div>
+</div>
+
+<!-- ── UPLOAD MODAL ── -->
+<div class="modal-backdrop" id="uploadBackdrop"></div>
+<div class="upload-modal" id="uploadModal">
+  <div class="upload-box">
+    <div class="upload-box-header">
+      <span class="upload-box-title">Upload Item</span>
+      <button class="modal-close" id="uploadClose">✕</button>
+    </div>
+    <div class="upload-box-body">
+      <div class="drop-zone" id="dropZone">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <p class="drop-zone-text">Drop image here or <label for="fileInput" style="text-decoration:underline;cursor:pointer">browse</label></p>
+        <p class="drop-zone-sub">JPG, PNG, WEBP supported</p>
+        <input type="file" id="fileInput" accept="image/*" multiple hidden/>
+      </div>
+      <div class="preview-row" id="previewRow"></div>
+      <div class="fields-grid">
+        <input type="text" id="itemName" class="field" placeholder="Item name"/>
+        <input type="text" id="itemPrice" class="field" placeholder="Price (e.g. $80)"/>
+        <select id="itemCategory" class="field field-full">
           <option value="tops">Tops</option>
           <option value="bottoms">Bottoms</option>
           <option value="outerwear">Outerwear</option>
           <option value="accessories">Accessories</option>
         </select>
-        <button class="btn-add" id="addBtn">Add Item</button>
+        <!-- Set as hero toggle -->
+        <label style="grid-column:1/-1;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--gray-4);cursor:pointer;">
+          <input type="checkbox" id="setHero" style="width:16px;height:16px;accent-color:var(--black)"/>
+          Use this image as hero background
+        </label>
       </div>
-    </div>
-    <div class="upload-preview" id="uploadPreview"></div>
-  </section>
-
-  <!-- TOGGLE UPLOAD -->
-  <div class="toggle-wrap">
-    <button class="toggle-upload" id="toggleUpload">+ Add clothing</button>
-  </div>
-
-  <!-- GRID -->
-  <main class="grid" id="grid">
-    <!-- Items injected by JS -->
-    <div class="empty-state" id="emptyState">
-      <p>No items yet. Add your first piece above.</p>
-    </div>
-  </main>
-
-  <!-- LIGHTBOX -->
-  <div class="lightbox" id="lightbox">
-    <button class="lightbox-close" id="lightboxClose">✕</button>
-    <div class="lightbox-inner">
-      <img class="lightbox-img" id="lightboxImg" src="" alt="" />
-      <div class="lightbox-info">
-        <p class="lightbox-cat" id="lightboxCat"></p>
-        <h2 class="lightbox-name" id="lightboxName"></h2>
-        <p class="lightbox-price" id="lightboxPrice"></p>
-      </div>
+      <button class="btn-add-item" id="addBtn">Add to Collection</button>
     </div>
   </div>
-  <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+</div>
 
-  <footer class="footer">
-    <span>© 2025 MERCH</span>
-  </footer>
+<!-- ── LIGHTBOX ── -->
+<div class="lb-backdrop" id="lbBackdrop"></div>
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose">✕</button>
+  <div class="lb-inner">
+    <div class="lb-img-wrap">
+      <img id="lbImg" src="" alt=""/>
+    </div>
+    <div class="lb-info">
+      <p class="lb-cat" id="lbCat"></p>
+      <h2 class="lb-name" id="lbName"></h2>
+      <p class="lb-price" id="lbPrice"></p>
+    </div>
+  </div>
+</div>
 
-  <script src="app.js"></script>
+<script>
+/* ══════════════════════════════════════
+   MERCH — app logic
+   ══════════════════════════════════════ */
+
+// ── CHANGE THIS PASSWORD ──────────────
+const ADMIN_PASSWORD = 'merch2025';
+// ─────────────────────────────────────
+
+const STORAGE_KEY = 'merch_v2_items';
+const HERO_KEY    = 'merch_v2_hero';
+
+let items         = load(STORAGE_KEY) || [];
+let isAdmin       = false;
+let currentFilter = 'all';
+let selected      = null;   // dataURL of selected preview
+let previews      = [];     // array of dataURLs
+
+/* ── ELEMENT REFS ── */
+const grid         = document.getElementById('grid');
+const emptyState   = document.getElementById('emptyState');
+const itemCount    = document.getElementById('itemCount');
+const adminTrigger = document.getElementById('adminTrigger');
+const logoutBtn    = document.getElementById('logoutBtn');
+const openUploadBtn= document.getElementById('openUploadBtn');
+
+const pwBackdrop   = document.getElementById('pwBackdrop');
+const pwModal      = document.getElementById('pwModal');
+const pwInput      = document.getElementById('pwInput');
+const pwError      = document.getElementById('pwError');
+const pwSubmit     = document.getElementById('pwSubmit');
+
+const uploadBackdrop = document.getElementById('uploadBackdrop');
+const uploadModal  = document.getElementById('uploadModal');
+const uploadClose  = document.getElementById('uploadClose');
+const dropZone     = document.getElementById('dropZone');
+const fileInput    = document.getElementById('fileInput');
+const previewRow   = document.getElementById('previewRow');
+const itemName     = document.getElementById('itemName');
+const itemPrice    = document.getElementById('itemPrice');
+const itemCategory = document.getElementById('itemCategory');
+const setHero      = document.getElementById('setHero');
+const addBtn       = document.getElementById('addBtn');
+
+const lbBackdrop   = document.getElementById('lbBackdrop');
+const lb           = document.getElementById('lb');
+const lbClose      = document.getElementById('lbClose');
+const lbImg        = document.getElementById('lbImg');
+const lbName       = document.getElementById('lbName');
+const lbPrice      = document.getElementById('lbPrice');
+const lbCat        = document.getElementById('lbCat');
+
+const heroVisual   = document.getElementById('heroVisual');
+const heroPlaceholder = document.getElementById('heroPlaceholder');
+
+const chips        = document.querySelectorAll('.chip');
+const navLinks     = document.querySelectorAll('.nav-link');
+
+/* ── INIT ── */
+restoreHero();
+renderGrid();
+
+/* ── NAV FILTER ── */
+navLinks.forEach(l => l.addEventListener('click', e => {
+  e.preventDefault();
+  navLinks.forEach(x => x.classList.remove('active'));
+  l.classList.add('active');
+  currentFilter = l.dataset.filter;
+  // sync chips
+  chips.forEach(c => c.classList.toggle('active', c.dataset.filter === currentFilter));
+  renderGrid();
+}));
+
+chips.forEach(c => c.addEventListener('click', () => {
+  chips.forEach(x => x.classList.remove('active'));
+  c.classList.add('active');
+  currentFilter = c.dataset.filter;
+  // sync nav
+  navLinks.forEach(l => l.classList.toggle('active', l.dataset.filter === currentFilter));
+  renderGrid();
+}));
+
+/* ── ADMIN TRIGGER (password) ── */
+adminTrigger.addEventListener('click', () => {
+  if (isAdmin) { logout(); return; }
+  openPwModal();
+});
+
+logoutBtn.addEventListener('click', logout);
+
+function openPwModal() {
+  pwBackdrop.classList.add('open');
+  pwModal.classList.add('open');
+  setTimeout(() => pwInput.focus(), 100);
+}
+
+function closePwModal() {
+  pwBackdrop.classList.remove('open');
+  pwModal.classList.remove('open');
+  pwInput.value = '';
+  pwError.textContent = '';
+  pwInput.classList.remove('error');
+}
+
+pwSubmit.addEventListener('click', checkPassword);
+pwInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkPassword(); });
+
+function checkPassword() {
+  const val = pwInput.value;
+  if (val === ADMIN_PASSWORD) {
+    isAdmin = true;
+    document.body.classList.add('admin-mode');
+    adminTrigger.classList.add('unlocked');
+    closePwModal();
+  } else {
+    pwInput.classList.add('error');
+    pwError.textContent = 'Incorrect password. Try again.';
+    pwInput.value = '';
+    setTimeout(() => pwInput.classList.remove('error'), 600);
+  }
+}
+
+function logout() {
+  isAdmin = false;
+  document.body.classList.remove('admin-mode');
+  adminTrigger.classList.remove('unlocked');
+}
+
+pwBackdrop.addEventListener('click', closePwModal);
+
+/* ── UPLOAD MODAL ── */
+openUploadBtn.addEventListener('click', openUploadModal);
+uploadClose.addEventListener('click', closeUploadModal);
+uploadBackdrop.addEventListener('click', closeUploadModal);
+
+function openUploadModal() {
+  uploadBackdrop.classList.add('open');
+  uploadModal.classList.add('open');
+}
+
+function closeUploadModal() {
+  uploadBackdrop.classList.remove('open');
+  uploadModal.classList.remove('open');
+  resetUpload();
+}
+
+/* ── FILE HANDLING ── */
+fileInput.addEventListener('change', e => handleFiles(e.target.files));
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragging'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragging');
+  handleFiles(e.dataTransfer.files);
+});
+
+function handleFiles(files) {
+  Array.from(files).forEach(file => {
+    if (!file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      previews.push(e.target.result);
+      if (!selected) selected = e.target.result;
+      renderPreviews();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderPreviews() {
+  previewRow.innerHTML = '';
+  previews.forEach(url => {
+    const img = document.createElement('img');
+    img.src = url;
+    img.className = 'preview-thumb' + (selected === url ? ' selected' : '');
+    img.addEventListener('click', () => { selected = url; renderPreviews(); });
+    previewRow.appendChild(img);
+  });
+}
+
+/* ── ADD ITEM ── */
+addBtn.addEventListener('click', () => {
+  if (!selected) { alert('Please select an image first.'); return; }
+
+  const item = {
+    id:       Date.now().toString(),
+    name:     itemName.value.trim() || 'Untitled',
+    price:    itemPrice.value.trim(),
+    category: itemCategory.value,
+    img:      selected,
+  };
+
+  if (setHero.checked) {
+    save(HERO_KEY, selected);
+    renderHero(selected);
+  }
+
+  items.unshift(item);
+  save(STORAGE_KEY, items);
+  renderGrid();
+  closeUploadModal();
+});
+
+function resetUpload() {
+  previews = []; selected = null;
+  previewRow.innerHTML = '';
+  itemName.value = '';
+  itemPrice.value = '';
+  fileInput.value = '';
+  setHero.checked = false;
+}
+
+/* ── RENDER GRID ── */
+function renderGrid() {
+  Array.from(grid.querySelectorAll('.card')).forEach(c => c.remove());
+
+  const filtered = currentFilter === 'all'
+    ? items
+    : items.filter(i => i.category === currentFilter);
+
+  emptyState.style.display = filtered.length === 0 ? 'flex' : 'none';
+  itemCount.textContent = `${filtered.length} item${filtered.length !== 1 ? 's' : ''}`;
+
+  filtered.forEach(item => grid.appendChild(buildCard(item)));
+}
+
+function buildCard(item) {
+  const card = document.createElement('div');
+  card.className = 'card';
+
+  const imgWrap = document.createElement('div');
+  imgWrap.className = 'card-img-wrap';
+  const img = document.createElement('img');
+  img.src = item.img;
+  img.alt = item.name;
+  img.loading = 'lazy';
+  imgWrap.appendChild(img);
+
+  const body = document.createElement('div');
+  body.className = 'card-body';
+  body.innerHTML = `
+    <p class="card-cat">${item.category}</p>
+    <p class="card-name">${item.name}</p>
+    ${item.price ? `<p class="card-price">${item.price}</p>` : ''}
+  `;
+
+  const removeBtn = document.createElement('button');
+  removeBtn.className = 'card-remove';
+  removeBtn.innerHTML = '×';
+  removeBtn.title = 'Remove item';
+  removeBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    items = items.filter(i => i.id !== item.id);
+    save(STORAGE_KEY, items);
+    renderGrid();
+  });
+
+  card.appendChild(imgWrap);
+  card.appendChild(body);
+  card.appendChild(removeBtn);
+  card.addEventListener('click', () => openLb(item));
+
+  return card;
+}
+
+/* ── HERO IMAGE ── */
+function renderHero(url) {
+  heroPlaceholder.style.display = 'none';
+  let heroImg = heroVisual.querySelector('img');
+  if (!heroImg) {
+    heroImg = document.createElement('img');
+    heroVisual.appendChild(heroImg);
+  }
+  heroImg.src = url;
+  heroImg.alt = 'Hero';
+}
+
+function restoreHero() {
+  const url = load(HERO_KEY);
+  if (url) renderHero(url);
+}
+
+/* ── LIGHTBOX ── */
+function openLb(item) {
+  lbImg.src = item.img;
+  lbImg.alt = item.name;
+  lbName.textContent = item.name;
+  lbPrice.textContent = item.price || '';
+  lbCat.textContent = item.category;
+  lbBackdrop.classList.add('open');
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLb() {
+  lbBackdrop.classList.remove('open');
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+lbClose.addEventListener('click', closeLb);
+lbBackdrop.addEventListener('click', closeLb);
+
+/* ── KEYBOARD ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLb(); closePwModal(); closeUploadModal(); }
+});
+
+/* ── STORAGE ── */
+function save(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+function load(key) {
+  try { return JSON.parse(localStorage.getItem(key)); } catch { return null; }
+}
+</script>
 </body>
 </html>
