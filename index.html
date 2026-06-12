@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MERCH</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <span class="nav-logo">MERCH</span>
+    <div class="nav-links">
+      <a href="#" class="nav-link active" data-filter="all">All</a>
+      <a href="#" class="nav-link" data-filter="tops">Tops</a>
+      <a href="#" class="nav-link" data-filter="bottoms">Bottoms</a>
+      <a href="#" class="nav-link" data-filter="outerwear">Outerwear</a>
+      <a href="#" class="nav-link" data-filter="accessories">Accessories</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <h1 class="hero-title">MERCH</h1>
+    <p class="hero-sub">Curated clothing. Nothing more.</p>
+  </header>
+
+  <!-- UPLOAD PANEL (admin) -->
+  <section class="upload-panel" id="uploadPanel">
+    <div class="upload-inner">
+      <div class="upload-drop" id="dropZone">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        <span>Drop image or <label for="fileInput" class="upload-link">browse</label></span>
+        <input type="file" id="fileInput" accept="image/*" multiple hidden />
+      </div>
+      <div class="upload-fields">
+        <input type="text" id="itemName" placeholder="Item name" class="field" />
+        <input type="text" id="itemPrice" placeholder="Price (e.g. $80)" class="field" />
+        <select id="itemCategory" class="field">
+          <option value="tops">Tops</option>
+          <option value="bottoms">Bottoms</option>
+          <option value="outerwear">Outerwear</option>
+          <option value="accessories">Accessories</option>
+        </select>
+        <button class="btn-add" id="addBtn">Add Item</button>
+      </div>
+    </div>
+    <div class="upload-preview" id="uploadPreview"></div>
+  </section>
+
+  <!-- TOGGLE UPLOAD -->
+  <div class="toggle-wrap">
+    <button class="toggle-upload" id="toggleUpload">+ Add clothing</button>
+  </div>
+
+  <!-- GRID -->
+  <main class="grid" id="grid">
+    <!-- Items injected by JS -->
+    <div class="empty-state" id="emptyState">
+      <p>No items yet. Add your first piece above.</p>
+    </div>
+  </main>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose">✕</button>
+    <div class="lightbox-inner">
+      <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+      <div class="lightbox-info">
+        <p class="lightbox-cat" id="lightboxCat"></p>
+        <h2 class="lightbox-name" id="lightboxName"></h2>
+        <p class="lightbox-price" id="lightboxPrice"></p>
+      </div>
+    </div>
+  </div>
+  <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+
+  <footer class="footer">
+    <span>© 2025 MERCH</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
